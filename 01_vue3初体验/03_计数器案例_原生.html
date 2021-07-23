@@ -7,6 +7,29 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h2 class="counter">1</h2>
+    <button class="increment">+1</button>
+    <button class="decrement">-1</button>
+
+    <script>
+        // 获取所有元素
+        const counterEl=document.querySelector(".counter");
+        const incrementEl=document.querySelector(".increment");
+        const decrementEl=document.querySelector(".decrement");
+
+        // 定义变量
+        let counter=100;
+        counterEl.innerHTML=counter;
+
+        // 监听按钮点击事件
+        incrementEl.addEventListener("click",()=>{
+            counter ++;
+            counterEl.innerHTML = counter;
+        });
+        decrementEl.addEventListener("click",()=>{
+            counter --;
+            counterEl.innerHTML = counter;
+        });
+    </script>
 </body>
 </html>
