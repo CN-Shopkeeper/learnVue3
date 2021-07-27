@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+        <div :style="{color: finalColor,'font-size': '30px'}">哈哈</div>
+        <div :style="{color: finalColor,fontSize: '30px'}">哈哈</div>
+        <div :style="{color: finalColor,fontSize: finalSize + 'px'}">哈哈</div>
+        <div :style="finalStyleObj">哈哈哈</div>
+        <div :style="getFinalStyleObj()">哈哈哈</div>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app={
+            template:"#my-app",
+            data(){
+                return{
+                    finalColor: 'red',
+                    finalSize: 50,
+                    finalStyleObj:{
+                        color: 'red',
+                        fontSize: '70px',
+                        backgroundColor: 'black'
+                    }
+                }
+            },
+            methods:{
+                getFinalStyleObj(){
+                    return {
+                        color: 'red',
+                        fontSize: '70px',
+                        backgroundColor: 'black'
+                    }
+                }
+            }
+        };
+        Vue.createApp(app).mount("#app");
+    </script>
+</body>
+</html>

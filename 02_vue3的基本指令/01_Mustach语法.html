@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+        <!-- 1.mustache语法的基本使用 -->
+        <h2>{{message}}</h2>
+        <!-- 2.表达式 -->
+        <h2>{{counter * 10}}</h2>
+        <h2>{{message.split(' ').reverse().join(' ')}}</h2>
+        <!-- 3.函数 -->
+        <h2>{{getReverseString()}}</h2>
+        <!-- 4.三元运算符 -->
+        <h2>{{isShow?"哈哈哈":""}}</h2>
+        <button @click="toggle">取反</button>
+        <!-- 错误语法 -->
+        <!-- 不能使用var、if等语句 -->
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app={
+            template:"#my-app",
+            data(){
+                return{
+                    message: "hello world",
+                    counter: 100,
+                    isShow: true
+                }
+            },
+            methods:{
+                getReverseString(){
+                    return this.message.split(' ').reverse().join(' ');
+                },
+                toggle(){
+                    this.isShow=!this.isShow;
+                }
+            }
+        };
+        Vue.createApp(app).mount("#app");
+    </script>
+</body>
+</html>
