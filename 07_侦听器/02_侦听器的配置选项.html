@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <template id="my-app">
+        <h2>{{info.name}}</h2>
+        <button @click="changeInfo">change info</button>
+        <button @click="changeInfoName">change info.name</button>
+        <button @click="changeInfoNbaName">change info.nba.name</button>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app={
+            template:"#my-app",
+            data(){
+                return{
+                    info: {
+                        name: 'why',
+                        age: 18,
+                        nba:{
+                            name: "kobe"
+                        }
+                    }
+                }
+            },
+            methods:{
+                changeInfo(){
+                    this.info={
+                        name:"kobe"
+                    }
+                },
+                changeInfoName(){
+                    this.info.name="kobe";
+                },
+                changeInfoNbaName(){
+                    this.info.nba.name="coder";
+                }
+            },
+            watch:{
+                // 默认情况下侦听器只能侦听数据本身的改变（内部改变不能侦听）
+                // info(newInfo, oldInfo){
+                //     console.log("new Value", newInfo,"old Value", oldInfo);
+                // }
+                // 上面是下面的语法糖
+                info: {
+                    handler: function(newInfo, oldInfo){
+                        console.log("new Value", newInfo,"old Value", oldInfo);
+                    },
+                    // 深度侦听
+                    deep: true,
+                    // 立即执行
+                    immediate: true
+                }
+            }
+        };
+        Vue.createApp(app).mount("#app");
+    </script>
+</body>
+</html>
