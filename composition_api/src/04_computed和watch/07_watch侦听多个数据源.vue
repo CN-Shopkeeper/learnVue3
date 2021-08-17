@@ -12,22 +12,18 @@ import { ref, reactive, watch} from "vue";
             // 定义响应式对象
             const info =reactive({
                 name: "sk",
-                age:19,
-                friend:{
-                    name:"kobe"
-                }
+                age:19
             });
-            // 源码中，传入reactive会默认开启deep侦听，而传入getter方法不会
+            const name = ref("sk");
+            // 侦听多个数据源
             watch([()=>{
                 return {...info}
-            }],(newInfo,oldInfo)=>{
-                console.log(newInfo,oldInfo);
-            },{
-                deep:true,
-                immediate:true
+            },name],([newInfo,newName],[oldInfo,oldName])=>{
+                console.log(newInfo,newName,oldInfo,oldName);
             });
             const changeData=()=>{
-                info.friend.name="james";
+                info.name="shopkeeper";
+                // name.value="shopkeeper";
             }
             return{
                 changeData,
