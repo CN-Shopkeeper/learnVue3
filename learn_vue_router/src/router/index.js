@@ -1,13 +1,34 @@
 import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router'
 
-import Home from '../pages/Home.vue';
-import About from '../pages/About.vue';
+// import Home from '../pages/Home.vue';
+// import About from '../pages/About.vue';
 
 // 配置映射关系
 const routes = [
   {path: '/', redirect: '/home'},
-  {path: '/home', component: Home},
-  {path: '/about', component: About}
+  {
+    path: '/home', 
+    component: ()=>{
+      return import(/* webpackChunkName: "home-chunk" */"../pages/Home.vue")
+    },
+    name: "home",
+    meta: {
+      name: "shopkeeper"
+    }
+  },
+  {
+    path: '/about', 
+    component: ()=>{
+      return import(/* webpackChunkName: "page-chunk" */"../pages/About.vue")
+    },
+    name: "about"
+  },
+  {
+    path: "/user/:username",
+    component: ()=>{
+      return import("../pages/User.vue")
+    }
+  }
 ];
 
 // 创建一个路由对象router
