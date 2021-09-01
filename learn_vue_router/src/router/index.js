@@ -28,6 +28,13 @@ const routes = [
     component: ()=>{
       return import("../pages/User.vue")
     }
+  },
+  {
+    // 固定写法pathMatch
+    path: "/:pathMatch(.*)",
+    component: ()=>{
+      return import("../pages/NotFound.vue")
+    }
   }
 ];
 
