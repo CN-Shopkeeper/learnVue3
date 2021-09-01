@@ -1,19 +1,38 @@
 <template>
   <div>
-    <router-link to="/home" replace active-class="home-active">首页</router-link>
+    <!-- props：href 跳转的链接 -->
+    <!-- props：route对象 -->
+    <!-- props：navigate函数 -->
+    <!-- props：isActive 当前是否处于活跃状态 -->
+    <!-- props：isExactActive 是否是精确活跃状态 -->
+    <router-link to="/home" active-class="home-active" v-slot="props" custom>
+      <!-- <nav-bar title="首页"></nav-bar> -->
+      <button>{{props.href}}</button>
+      <!-- <p>{{props.route}}</p> -->
+      <button @click="props.navigate">导航</button>
+      <span :class="{'active': props.isActive}">{{props.isActive}}</span>
+    </router-link>
     <router-link to="/about" replace active-class="about-active">关于</router-link>
     <router-link :to="'/user/'+name">用户</router-link>
+    <router-link to="/category"></router-link>
 
-    <br>
     <button @click="jumpToAbout">关于</button>
-    <router-view></router-view>
+    <router-view v-slot="props">
+      <transition name="shopkeeper">
+        <keep-alive>
+          <component :is="props.Component"></component>
+        </keep-alive>
+      </transition>
+    </router-view>
   </div>
 </template>
 
 <script>
 import {useRouter} from 'vue-router'
+import NavBar from './components/NavBar.vue'
 export default {
   components: {
+    NavBar
   },
   setup(props) {
     const router = useRouter();
@@ -47,5 +66,13 @@ export default {
   }
   .about-active{
     color: blue;
+  }
+  .shopkeeper-enter-from,
+  .shopkeeper-leave-to{
+    opacity: 0;
+  }
+  .shopkeeper-enter-active,
+  .shopkeeper-leave-avtive{
+    transition: opacity 1s ease;
   }
 </style>
