@@ -14,7 +14,21 @@ const routes = [
     name: "home",
     meta: {
       name: "shopkeeper"
-    }
+    },
+    children: [
+      {
+        path:"",
+        redirect:"/home/message"
+      },
+      {
+        path:'shops',
+        component: ()=> import("../pages/HomeShops.vue")
+      },
+      {
+        path:'message',
+        component:()=> import("../pages/HomeMessage.vue")
+      }
+    ]
   },
   {
     path: '/about', 
