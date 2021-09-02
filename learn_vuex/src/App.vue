@@ -3,14 +3,16 @@
     <h2>{{$store.state.counter}}</h2>
     <button @click="increment">+1</button>
     <button @click="decrement">-1</button>
+    <home/>
   </div>
 </template>
 
 <script>
-
+import Home from './pages/Home.vue'
 export default {
   name: 'App',
   components: {
+    Home
   },
   methods:{
     increment(){
@@ -19,7 +21,8 @@ export default {
     decrement(){
       this.$store.commit("decrement")
     }
-  }
+  },
+
 }
 </script>
 
