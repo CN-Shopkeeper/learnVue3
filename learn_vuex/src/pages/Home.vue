@@ -1,19 +1,15 @@
 <template>
   <div>
-    <h2>Home:{{counter}}</h2>
-    <h2>{{name}}</h2>
+    <hr>
+    <hr>
   </div>
 </template>
 
 <script>
-import { useState } from '../hooks/useState'
+import { mapGetters } from 'vuex'
   export default {
     setup(props) {
-      const storeState = useState(["counter","name"])
-      
-
       return {
-        ...storeState 
       }
     }
   }
