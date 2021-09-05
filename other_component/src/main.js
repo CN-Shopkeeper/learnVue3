@@ -1,8 +1,9 @@
 import { createApp } from 'vue'
 // import App from './01_render函数的使用/App.vue';
 // import App from "./02_jsx的使用/App.vue";
-import App from "./03_自定义指令/App.vue";
+// import App from "./03_自定义指令/App.vue";
 // import App from './04_teleport内置组件/App.vue'; 
+import App from './05_nexttick/App.vue';
 
 import registerDirectives from "./directives";
 
