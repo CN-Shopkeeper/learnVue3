@@ -1,5 +1,9 @@
-import { mapState } from 'vuex'
+import { mapState, createNamespacedHelpers } from 'vuex'
 import { useMapper } from './useMapper';
-export function useState(mapper){
-  return useMapper(mapper, mapState);
+export function useState(mapper, moduleId){
+  let mapperFn= mapState;
+  if (typeof moduleId==='string' && moduleId.length>0){
+    mapperFn=createNamespacedHelpers(moduleId).mapState;
+  }
+  return useMapper(mapper, mapperFn);
 }

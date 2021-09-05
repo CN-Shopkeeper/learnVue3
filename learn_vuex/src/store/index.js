@@ -12,6 +12,11 @@ const store = createStore({
       state.counter++
     }
   },
+  getters:{
+    doubleCounter(state,getters,rootState,rootGetters){
+      return state.counter*2;
+    }
+  },
   modules:{
     home,
     user 

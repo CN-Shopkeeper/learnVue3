@@ -1,29 +1,65 @@
 <template>
   <div>
     <hr>
-    <h2>当前root计数：{{$store.state.counter}}</h2>
-    <h2>当前home计数：{{$store.state.home.counter}}</h2>
-    <h2>当前user计数：{{$store.state.user.counter}}</h2>
-    <button @click="homeIncrement">home+1</button>
-    <!-- 默认情况下：modules中只有state是独占的（需要使用state.xxx获取），其它的属性mutations等都是合并到根store中 -->
-    <!-- <h2>{{$store.getters.doubleHomeCounter}}</h2> -->
-    <h2>{{$store.getters["home/doubleHomeCounter"]}}</h2>
-    <button @click="homeIncrementAction">home increment action</button>
+    <h2>当前root计数：{{$store.state.home.counter}}</h2>
+    <button @click="increment">home+1</button>
     <hr>
   </div>
 </template>
 
 <script>
-import {useStore, mapActions} from 'vuex'
+import { createNamespacedHelpers} from 'vuex'
+import {useState, useGetters} from '../hooks'
+const {mapState,mapGetters,mapMutations,mapActions} = createNamespacedHelpers("home")
+
   export default {
-    methods: {
-      homeIncrement(){
-        this.$store.commit("home/increment")
-      },
-      homeIncrementAction(){
-        this.$store.dispatch("home/incrementAction")
-      }
+    computed:{
+      // 写法1
+      // ...mapState({
+      //   counter: state=> state.home.counter
+      // }),
+      // ...mapGetters({
+      //   doubleHomeCounter: "home/doubleHomeCounter"
+      // })
+      
+      //写法2：直接从根中获取
+      // ...mapState("home",["counter"]),
+      // ...mapGetters("home",["doubleHomeCounter"])
+
+      // 写法3：从home中获取
+      // ...mapState(["counter"]),
+      // ...mapGetters(["doubleHomeCounter"])
     },
+    methods: {
+      // 写法1（错误写法）
+      // ...mapMutations({
+      //   increment:"home/increment"
+      // }),
+      // ...mapActions({
+      //   incrementAction:"home/incrementAction"
+      // })
+
+      // 写法2：直接从根中获取
+      // ...mapMutations("home",["increment"]),
+      // ...mapActions("home",["incrementAction"])
+
+      // 写法3：从home中获取
+      // ...mapMutations(["increment"]),
+      // ...mapActions(["incrementAction"])
+    },
+    setup(props) {
+      const state = useState(["counter"])
+      const getters= useGetters(["doubleHomeCounter"])
+      const mutations = mapMutations(["increment"])
+      const actions = mapActions(["incrementAction"])
+
+      return{
+        ...state,
+        ...getters,
+        ...mutations,
+        ...actions
+      }
+    }
   }
 </script>
 
