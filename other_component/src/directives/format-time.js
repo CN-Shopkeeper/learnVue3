@@ -1,11 +1,12 @@
 import dayjs from "dayjs"
 
 export default function(app){
-    let formatString="YYYY-MM-DD HH:mm";
     app.directive("format-time",{
         created(el,bindings) {
+            // 不能定义为全局的，因为会邮箱后续使用
+            bindings.formatString="YYYY-MM-DD HH:mm";
             if (bindings.value){
-                formatString=bindings.value;
+                bindings.formatString=bindings.value;
             }
         },
         mounted(el,bindings) {
@@ -14,7 +15,7 @@ export default function(app){
             if (textContent.length===10){
                 timestamp*=1000;
             }
-            el.textContent=dayjs(timestamp).format(formatString);
+            el.textContent=dayjs(timestamp).format(bindings.formatString);
         },
     })
 }
